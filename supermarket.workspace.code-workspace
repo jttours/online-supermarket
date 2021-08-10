@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "supermarket-client",
+			"name": "frontend"
+		},
+		{
+			"path": "supermarket-server",
+			"name": "backend"
+		}
+	]
+}
