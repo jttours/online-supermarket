@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { MatToolbarModule } from '@angular/material/toolbar';
 // import {MatIconModule} from '@angular/material/icon';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'main-header',
@@ -9,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public authService: AuthService
+  ) { }
 
   ngOnInit(): void {
   }

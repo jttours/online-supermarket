@@ -1,0 +1,55 @@
+<div class="card" style="width: 50rem;">
+    <p>REGISTER USER</p>
+    <div class="card-body">
+        <form (ngSubmit)="registerUser()" [formGroup]="registerForm">
+
+            <div class="form-group">
+                <label for="idNumber">ID Number</label>
+                <input type="text" id="idNumber" formControlName="idNumber" class="form-control" placeholder="Enter ID number " required>
+            </div>
+
+            <div class="form-group ">
+                <label for="username ">Username (email address)</label>
+                <input type="text " formControlName="username" class="form-control" placeholder="Enter your email address " required>
+            </div>
+
+            <div class="form-group ">
+                <label for="password1">Password</label>
+                <input type="password" formControlName="password1" class="form-control" placeholder="Password " required>
+            </div>
+
+            <div class="form-group ">
+                <label for="password2 ">Confirm password</label>
+                <input type="password" formControlName="password2" class="form-control" placeholder="confirm password " required>
+            </div>
+
+            <div class="form-group ">
+                <label for="city ">Choose City</label>
+                <select class="form-control" placeholder="city name " formControlName="city">
+                    <option [ngValue]="null " disabled>Select City</option>
+                    <option *ngFor="let city of cities " [ngValue]="city.name">{{city.name}}</option>
+                  </select>
+            </div>
+
+            <div class="form-group ">
+                <label for="street ">Street address</label>
+                <input type="text" formControlName="street" class="form-control" placeholder="Street address ">
+            </div>
+
+            <div class="form-group ">
+                <label for="firstName ">First Name</label>
+                <input type="text" formControlName="firstName" class="form-control" placeholder="First Name ">
+            </div>
+
+            <div class="form-group ">
+                <label for="lastName ">Last Name</label>
+                <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name ">
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-dark btn-sm ">Submit</button>
+
+            </div>
+        </form>
+    </div>
+</div>

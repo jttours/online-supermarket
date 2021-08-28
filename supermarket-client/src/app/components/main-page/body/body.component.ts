@@ -2,7 +2,19 @@ import { Input } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { ShoppingPageComponent } from '../../shoppingPage/shopping-page/shopping-page.component';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
 
 @Component({
   selector: 'body',
@@ -10,24 +22,57 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./body.component.css']
 })
 export class BodyComponent implements OnInit {
+
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
+  passwordFormControl = new FormControl('', [
+    Validators.required,
+  ]);
+
+  matcher = new MyErrorStateMatcher();
   
-    form: FormGroup = new FormGroup({
+    loginForm: FormGroup = new FormGroup({
       username: new FormControl(''),
       password: new FormControl(''),
     });
+
+    
   
-    submit() {
-      if (this.form.valid) {
-        this.submitEM.emit(this.form.value);
+    login() {
+      if (this.loginForm.valid) {
+        // console.log(this.loginForm.value.username);
+        const credentials = this.loginForm.value;
+        // this.submitEM.emit(this.loginForm.value);
+        this.authService.login(credentials);
+        console.log(this.authService.currentUser.firstName);
+
+        
+        // authService.isLoggedIn.firstName;
+          // .(result: any) => {
+          //   if (result)
+
+          //     this.router.navigate(['/shopping']);
+            // else
+            //   this.invalidLogin = true;  
+          // }
+        
       }
     }
+
+    
     @Input() error: string | null | undefined;
   
     @Output() submitEM = new EventEmitter();
   
   
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    public authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
   }

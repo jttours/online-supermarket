@@ -1,6 +1,6 @@
 import { BodyComponent } from './components/main-page/body/body.component';
 import { ShoppingPageComponent } from './components/shoppingPage/shopping-page/shopping-page.component';
-import { SignInComponent } from './components/main-page/sign-in/sign-in.component';
+import { RegisterComponent } from './components/main-page/register/register.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -12,7 +12,7 @@ const routes: Routes = [
     path: 'shopping', component: ShoppingPageComponent,
   },
   { 
-    path: 'signin', component: SignInComponent,
+    path: 'register', component: RegisterComponent,
   },
   // { path: 'second-component', component: SecondComponent },
 ];

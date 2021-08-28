@@ -1,0 +1,73 @@
+:host {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0px;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.mat-form-field {
+    width: 100%;
+    min-width: 300px;
+}
+
+.mat-card-content {
+    width: 100%;
+    min-width: 400px;
+    height: 100%;
+}
+
+.mat-card {
+    height: 500px;
+}
+
+.mat-card-title,
+mat-card-content {
+    display: flex;
+    justify-content: center;
+}
+
+.error {
+    padding: 16px;
+    width: 300px;
+    color: white;
+    background-color: red;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    border: 1px solid;
+    border-radius: 4px;
+    background-color: blue;
+}
+
+.content {
+    padding: 16px;
+}
+
+.content>mat-card {
+    margin-bottom: 16px;
+}
+
+.cross-validation-error input {
+    border-left: 5px solid red;
+}
