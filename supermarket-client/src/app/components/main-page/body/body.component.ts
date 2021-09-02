@@ -43,21 +43,9 @@ export class BodyComponent implements OnInit {
   
     login() {
       if (this.loginForm.valid) {
-        // console.log(this.loginForm.value.username);
         const credentials = this.loginForm.value;
-        // this.submitEM.emit(this.loginForm.value);
+        console.log('credentials -',credentials);
         this.authService.login(credentials);
-        console.log(this.authService.currentUser.firstName);
-
-        
-        // authService.isLoggedIn.firstName;
-          // .(result: any) => {
-          //   if (result)
-
-          //     this.router.navigate(['/shopping']);
-            // else
-            //   this.invalidLogin = true;  
-          // }
         
       }
     }

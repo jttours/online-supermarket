@@ -18,6 +18,8 @@ import { ItemsComponent } from './components/shoppingPage/items/items.component'
 import { ShoppingHeaderComponent } from './components/shoppingPage/shopping-header/shopping-header.component';
 import { ShoppingPageComponent } from './components/shoppingPage/shopping-page/shopping-page.component';
 import { RegisterComponent } from './components/main-page/register/register.component';
+import { AddProductComponent } from './components/adminPage/add-product/add-product.component';
+import { AdminMainComponent } from './components/adminPage/admin-main/admin-main.component';
 
 
 
@@ -32,7 +34,9 @@ import { RegisterComponent } from './components/main-page/register/register.comp
     ItemsComponent,
     ShoppingHeaderComponent,
     ShoppingPageComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddProductComponent,
+    AdminMainComponent
   ],
   imports: [
     BrowserModule,

@@ -30,17 +30,18 @@ router.post('/api/users/add', (req, res) => {
     //console.log(req.bod)
     
     const user = new UsersModel({
-        userIdNumber: req.body.userIdNumber,
-        userEmail: req.body.userEmail,
-        userPassword: req.body.userPassword,
-        userCity: req.body.userCity,
-        userStreet: req.body.userStreet,
-        userFirstName: req.body.userFirstName,
-        userLastName: req.body.userLastName,
+        idNumber: req.body.idNumber,
+        username: req.body.username,
+        password: req.body.password,
+        city: req.body.city,
+        street: req.body.street,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
 
     });
     user.save((err, data) => {
         if(!err) {
+            console.log('The data is - ',data);
             // res.send(data);
             res.status(200).json({code: 200, message: 'Model Added Successfully', addUser: data})
         } else {

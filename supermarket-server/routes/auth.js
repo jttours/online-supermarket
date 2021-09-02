@@ -7,14 +7,15 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', async (req,res) => {
-    
-    let user = await User.findOne({ userEmail: req.body.userEmail});
+    console.log(req.body);
+    let user = await User.findOne({ username: req.body.username});
+    console.log('the user is - ',user);
     if (!user) return res.status(400).send('Invalid email or password!');
 
-    const validPassword = await bcrypt.compare(req.body.userPassword,user.userPassword);
+    const validPassword = await bcrypt.compare(req.body.password,user.password1);
     if(!validPassword) return res.status(400).send('Invalid email or password!');
 
-    const token = jwt.sign({userFirstName: user.userFirstName}, 'jwtPrivateKey')
+    const token = JSON.stringify(jwt.sign({firstName: user.firstName, admin: user.admin}, 'jwtPrivateKey'));
     res.send(token);
 });
 

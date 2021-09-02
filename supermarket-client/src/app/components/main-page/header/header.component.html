@@ -9,7 +9,7 @@
     <mat-toolbar-row>
 
         <span class="example-spacer"></span>
-        <span>{{authService.currentUser.firstName}}</span>
+        <span *ngIf="authService.isLoggedIn()">{{authService.currentUser.firstName}}</span>
 
     </mat-toolbar-row>
 </mat-toolbar>

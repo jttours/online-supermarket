@@ -24,7 +24,8 @@ login(credentials: any){
     if (token) {
       localStorage.setItem('token',token);
       const decoded = this.helper.decodeToken(token);
-      console.log('logged in - ',this.helper.isTokenExpired(token));
+      console.log('logged in - ',!this.helper.isTokenExpired(token));
+      console.log('the token contents - ',this.helper.decodeToken(token));
       // console.log('decoded - ',decoded.firstName);
       this.router.navigate(['/']);
     }
@@ -37,9 +38,11 @@ logout() {
 
 isLoggedIn(){
   let token:any = localStorage.getItem('token');
+  
   return !this.helper.isTokenExpired(token);
 
 }
+
 
 
 get currentUser() {

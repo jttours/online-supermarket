@@ -1,91 +1,61 @@
-const Joi = require('joi');
 let mongoose = require('mongoose');
 
 
 
-// AccountOperations Schema
+// Users Schema
 const User = mongoose.model('User', {
-    userIdNumber: {
+    idNumber: {
         type: String,
         required: true,
         minLength: 5,
         maxLength: 9,
         unique: true
     }, 
-    userEmail: {
+    username: {
         type: String,
         required: true,
         minLength: 5,
         maxLength: 255
     },
-    userPassword: {
+    password1: {
         type: String,
         required: true,
         minLength: 5,
         maxLength: 1024
     },
-    userCity: {
+    password2: {
+        type: String,
+        minLength: 5,
+        maxLength: 1024
+    },
+    city: {
         type: String,
         minLength: 5,
         maxLength: 255
     },
-    userStreet: {
+    street: {
         type: String,
         minLength: 5,
         maxLength: 255
     },
-    userFirstName: {
+    firstName: {
         type: String,
         minLength: 2,
         maxLength: 255
     },
-    userLastName: {
+    lastName: {
         type: String,
         minLength: 2,
         maxLength: 255
+    },
+    admin: {
+        type: Boolean
     }
 
 });
 
-function validateUser(user) {
-    const schema = Joi.object ({
-        userIdNumber: Joi.string()
-        .min(5)
-        .max(9)
-        .required(),
-
-        userEmail: Joi.string()
-        .min(5)
-        .max(255)
-        .required()
-        .email(),
-
-        userPassword: Joi.string()
-        .min(5)
-        .max(255)
-        .required(),
-
-        // userCity: Joi.string()
-        // .min(5)
-        // .max(255),
-
-        // userStreet: Joi.string()
-        // .min(5)
-        // .max(255),
-
-        // userFirstName: Joi.string()
-        // .min(5)
-        // .max(255),
-
-        // userLastName: Joi.string()
-        // .min(5)
-        // .max(255)
-    })
-
-    return Joi.validate (user, schema);
-};
 
 
 
 module.exports = { User };
-exports.validate = validateUser;
+// exports.validate = validateUser;
