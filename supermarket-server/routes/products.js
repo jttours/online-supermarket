@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function(req, imageData, cb) {
         cb(null, './');
      },
     filename: function (req, file, cb) {
@@ -21,11 +21,20 @@ const upload = multer({
   });
 
 
-router.post('/', upload.single('imagePath'), async (req,res) => {
-  let product = await Product();
+router.post('/', upload.single('image'),  async (req,res) => {
+  // let product = await Product();
+  const { name , price, category } = req.body
     console.log('is this it?    ',req.body,req.file)
-    const imagePath = 'http://localhost:4200/images/' + req.file.filename;
-    product = new Product(req.body, _.pick(product, ['name','price','image','category']));
+    const image = req.file.filename;
+    console.log('image - ',image);
+    // product = new Product(req.body, image,  _.pick(product, ['name','price','image','category']));
+
+    product = new Product({
+      name,
+      price,
+      image,
+      category
+    });
 
     console.log('the product request file and body', product);
 

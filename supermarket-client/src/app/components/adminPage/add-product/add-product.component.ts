@@ -14,8 +14,8 @@ export class AddProductComponent implements OnInit {
   addProductForm!: FormGroup;
   product!: Product;
   imageData!: any;
-  data: Object | undefined;
   submitted = false;
+  
 
   categories = [
     {  name: "Milk & Cheese" },
@@ -35,28 +35,25 @@ export class AddProductComponent implements OnInit {
       name: new FormControl(null),
       price: new FormControl(null),
       image: new FormControl(null),
-      imageData: new FormControl(null),
       category: new FormControl(null),
     })
   }
 
   onFileSelect(event: any){
+      const fileElement = (event.target);
+      const file = fileElement.files[0];
+      console.log(file);
+      this.addProductForm.patchValue({ image: file });
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imageData = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      }
     
-    const reader = new FileReader();
-    
-    if(event.target.files && event.target.files.length) {
-      const [image] = event.target.files;
-      reader.readAsDataURL(image);
-    
-      reader.onload = () => {
-        this.imageData = reader.result as string;
-        console.log('reader result - ',reader.result);
-        this.addProductForm.patchValue({
-          imageData: reader.result
-        });
-   
-      };
-    }
+  
   }
 
   addProduct() {
@@ -66,7 +63,6 @@ export class AddProductComponent implements OnInit {
       this.addProductForm.value.name, 
       this.addProductForm.value.image,
       this.addProductForm.value.price,
-      this.addProductForm.value.imageData,
       this.addProductForm.value.category);
     this.addProductForm.reset();
     this.imageData = null;
