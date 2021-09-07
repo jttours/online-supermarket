@@ -1,5 +1,5 @@
 <div class="card" style="width: 50rem;">
-    <h1>REGISTER USER</h1>
+    <h1>ADD Product</h1>
     <div class="card-body">
         <form [formGroup]="addProductForm" (submit)="addProduct()">
             <div class="form-group">
@@ -26,6 +26,9 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-dark btn-sm " type="submit">Add product</button>
+            </div>
+            <div>
+                <a routerLink="/admin">back to admin main page</a>
             </div>
         </form>
     </div>
