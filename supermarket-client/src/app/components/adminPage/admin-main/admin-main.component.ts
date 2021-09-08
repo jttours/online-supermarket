@@ -11,11 +11,14 @@ import { Product } from 'src/app/models/Product';
   styleUrls: ['./admin-main.component.css']
 })
 export class AdminMainComponent implements OnInit {
-  
+  selectedProduct: any;
   products: Product[] = [];
   private productSubscription!: Subscription;
 
-  
+  getThisProduct(data: any){
+    console.log(data);
+    this.selectedProduct=data.name;
+}
 
   constructor(private productService: ProductService) { }
 

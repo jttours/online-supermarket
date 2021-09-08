@@ -7,15 +7,15 @@
                         <mat-toolbar-row>
                             <span class="example-spacer"></span>
                             <button routerLink="/addProduct">
-                                <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+                                <mat-icon aria-hidden="false">add</mat-icon>
                             </button>
                         </mat-toolbar-row>
                     </mat-toolbar>
                     <mat-card-title>
-                        test
+                        {{ selectedProduct }}
                     </mat-card-title>
                     <mat-card-content>
-                        conent2
+                        {{ selectedProduct }}
                     </mat-card-content>
                 </mat-card>
             </mat-card-content>
@@ -29,23 +29,23 @@
                     </mat-toolbar>
                 </mat-card-title>
                 <mat-card-content>
-                    <!-- <div *ngIf="profiles.length > 0">
-                        <div *ngFor="let profile of profiles" class="profile">
-                            <img [src]="profile.imagePath" [alt]="profile.name" />
-                            <div>
-                                <span>{{ profile.name }}</span>
-                            </div>
-                        </div>
-                    </div> -->
+
+
+
+
+
+
                     <div *ngIf="products.length > 0">
                         <div fxLayout=" row wrap " fxLayoutGap="16px grid ">
-                            <div [fxFlex]="(100/7) + '%' " fxFlex.xs="100% " fxFlex.sm="33% " *ngFor="let product of products" class="product">
+                            <div [fxFlex]="(100/7) + '%' " fxFlex.xs="100% " fxFlex.sm="33% " *ngFor="let product of products" class="product" (click)="getThisProduct(product)">
                                 <mat-card class="mat-elevation-z2 card2 ">
                                     <img mat-card-image [src]="product.image" [alt]="product.name">
                                     <mat-card-content class="adminContent ">
-                                        <p>{{ product.name }}</p>
-                                        <br>
-                                        <p>{{ product.price }}</p>
+
+
+                                        <h5>{{ product.name }}</h5>
+
+                                        <h5>{{ product.price | currency: 'ILS':true }}</h5>
                                     </mat-card-content>
 
                                     <mat-card-actions>

@@ -55,5 +55,39 @@ router.get ('/', async (req, res) => {
   res.status(200).json({ products });
 });
 
+router.put('/:id', upload.single('image'), async(req,res) => {
+  //console.log(req);
+  const _id = req.params.id;
+  console.log('id - ', _id, 'body - ', req.body);
+
+  const { name , price, image, category } = req.body;
+
+  if (req.file) {
+    image = 'http://localhost:5500/uploads/' + req.file.filename;
+  };
+
+  
+
+  console.log('image - ', image);
+   
+  const product = await Product.findByIdAndUpdate(_id, {
+    $set: {
+      name,
+      price,
+      image,
+      category
+    }
+    
+
+  }, { new: true });
+
+  console.log('product - ',product );
+  
+
+  await product.save();
+
+  res.send(_.pick(product, ['_id','name','price','image','category']));
+})
+
 
 module.exports = router;

@@ -25,6 +25,7 @@ app.use('/api/users/add', users);
 app.use('/api/auth', auth);
 app.use('/api/products/add', products);
 app.use('/api/products/getAllProducts', products);
+app.use('/api/products/update', products);
 
 
 

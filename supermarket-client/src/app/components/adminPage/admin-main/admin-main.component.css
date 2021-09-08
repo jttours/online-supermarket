@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     margin: 20px 0px;
-    /* width: 100%; */
+    width: 100%;
 }
 
 input {
@@ -38,6 +38,10 @@ p {
     min-width: 200px;
     height: 100%;
     padding-left: 16px;
+}
+
+img {
+    height: 60px;
 }
 
 .mat-card {
@@ -86,10 +90,6 @@ mat-grid-tile {
 
 .example-card {
     max-width: 300px;
-}
-
-.card2 {
-    height: 100px
 }
 
 .card2 {
