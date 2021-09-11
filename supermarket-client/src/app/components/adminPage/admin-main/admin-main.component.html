@@ -12,10 +12,50 @@
                         </mat-toolbar-row>
                     </mat-toolbar>
                     <mat-card-title>
-                        {{ selectedProduct }}
+
                     </mat-card-title>
                     <mat-card-content>
-                        {{ selectedProduct }}
+                        <div class="card" style="width: 20rem;">
+                            <div class="card-body">
+                                <form [formGroup]="updateProductForm" (submit)="updateProduct()">
+                                    <div class="form-group">
+                                        <!-- <label for="name">Product name</label> -->
+                                        <input type="text" id="productId" [(ngModel)]="updateProductId" formControlName="id" class="form-control" placeholder="product id " required>
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- <label for="name">Product name</label> -->
+                                        <input type="text" id="productName" formControlName="name" [(ngModel)]="updateProductName" class="form-control" placeholder="Enter product name " required>
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- <label for="price">Product Price</label> -->
+                                        <input type="number" id="price" formControlName="price" [(ngModel)]="updateProductPrice" class="form-control" placeholder="Enter product price " required>
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- <label for="image">Select file for product image</label> -->
+                                        <input type="text" id="productImage" formControlName="image" [(ngModel)]="updateProductImage" class="form-control" placeholder="image path ">
+                                        <input (change)="onFileSelect($event)" type="file" id="image" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+
+                                        <input type="text" id="productCategory" formControlName="category" [(ngModel)]="updateProductCategory" class="form-control" placeholder="category ">
+                                        <select class="form-control" placeholder="Category " formControlName="category">
+                                            <option [ngValue]="null " disabled>Update category?</option>
+                                            <option *ngFor="let category of categories" [ngValue]="category.name">{{category.name}}</option>
+                                          </select>
+
+                                    </div>
+                                    <!-- <div *ngIf="imageData" class="form-group">
+                                        <img [src]="imageData" [alt]="updateProductForm.value.name" style="width:400px; height:250px">
+                                    </div> -->
+                                    <div class="form-group">
+                                        <button class="btn btn-dark btn-sm " type="submit">Update product</button>
+                                    </div>
+                                    <div>
+                                        <a routerLink="/admin">back to admin main page</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </mat-card-content>
                 </mat-card>
             </mat-card-content>
@@ -39,12 +79,9 @@
                         <div fxLayout=" row wrap " fxLayoutGap="16px grid ">
                             <div [fxFlex]="(100/7) + '%' " fxFlex.xs="100% " fxFlex.sm="33% " *ngFor="let product of products" class="product" (click)="getThisProduct(product)">
                                 <mat-card class="mat-elevation-z2 card2 ">
-                                    <img mat-card-image [src]="product.image" [alt]="product.name">
+                                    <img mat-card-image [src]="product.image" [alt]="product.name" *ngIf="product.image">
                                     <mat-card-content class="adminContent ">
-
-
                                         <h5>{{ product.name }}</h5>
-
                                         <h5>{{ product.price | currency: 'ILS':true }}</h5>
                                     </mat-card-content>
 
@@ -67,3 +104,6 @@
     </div>
 
 </div>
+<!-- </div> -->
+
+<!-- </div> -->
