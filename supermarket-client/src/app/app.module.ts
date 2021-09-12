@@ -20,6 +20,7 @@ import { ShoppingPageComponent } from './components/shoppingPage/shopping-page/s
 import { RegisterComponent } from './components/main-page/register/register.component';
 import { AddProductComponent } from './components/adminPage/add-product/add-product.component';
 import { AdminMainComponent } from './components/adminPage/admin-main/admin-main.component';
+import { SearchProductPipe } from './pipes/search-product.pipe';
 
 
 
@@ -36,7 +37,8 @@ import { AdminMainComponent } from './components/adminPage/admin-main/admin-main
     ShoppingPageComponent,
     RegisterComponent,
     AddProductComponent,
-    AdminMainComponent
+    AdminMainComponent,
+    SearchProductPipe
   ],
   imports: [
     BrowserModule,

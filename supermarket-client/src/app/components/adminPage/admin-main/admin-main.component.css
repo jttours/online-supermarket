@@ -70,7 +70,7 @@ mat-card-content {
     background-color: blue;
 }
 
-.content>mat-card {
+.contentAdmin>mat-card {
     margin-bottom: 16px;
 }
 
@@ -94,4 +94,9 @@ mat-grid-tile {
 
 .card2 {
     height: 100px
+}
+
+.navMenu {
+    font-size: 10px;
+    padding: 10px;
 }

@@ -64,8 +64,29 @@
         <div [fxFlex]="(70) + '%' " fxFlex.xs="100% " fxFlex.sm="70% ">
             <mat-card class="mat-elevation-z4 ">
                 <mat-card-title>
-                    <mat-toolbar color="primary">
-                        <shopping-header></shopping-header>
+                    <!-- <ul class="nav nav-tabs">
+                        <ng-container *ngFor="let category of categories; let I = index">
+                            <li [class.active]="category == selectedCategory" (click)="onSelect(category)">
+                                <a>
+                                        {{ category.name }}
+                                </a>
+                            </li>
+                        </ng-container>
+                    </ul> -->
+                    <mat-toolbar color="primary" *ngFor="let category of categories; let I = index">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                <div class="navbar-nav navMenu">
+                                    <a [class.active]="category == selectedCategory" (click)="onSelect(category)">{{ category.name }}</a>
+                                    <!-- <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                                    <a class="nav-item nav-link" href="#">Milk & Cheeses    |   </a>
+                                    <a class="nav-item nav-link" href="#">Fruits & Vegetables    |   </a>
+                                    <a class="nav-item nav-link" href="#">Cleaning Materials       </a>
+                                    <a class="nav-item nav-link" href="#">Drinks       </a>
+                                    <a class="nav-item nav-link" href="#">Meat and Chicken       </a> -->
+                                </div>
+                            </div>
+                        </nav>
                     </mat-toolbar>
                 </mat-card-title>
                 <mat-card-content>
@@ -75,11 +96,29 @@
 
 
 
-                    <div *ngIf="products.length > 0">
+                    <div *ngIf="!filteredProducts">
                         <div fxLayout=" row wrap " fxLayoutGap="16px grid ">
-                            <div [fxFlex]="(100/7) + '%' " fxFlex.xs="100% " fxFlex.sm="33% " *ngFor="let product of products" class="product" (click)="getThisProduct(product)">
+                            <div [fxFlex]=" (100/7) + '%' " fxFlex.xs="100% " fxFlex.sm="33% " *ngFor="let product of products " class="product " (click)="getThisProduct(product) ">
                                 <mat-card class="mat-elevation-z2 card2 ">
-                                    <img mat-card-image [src]="product.image" [alt]="product.name" *ngIf="product.image">
+                                    <img mat-card-image [src]="product.image " [alt]="product.name " *ngIf="product.image ">
+                                    <mat-card-content class="adminContent ">
+                                        <h5>{{ product.name }}</h5>
+                                        <h5>{{ product.price | currency: 'ILS':true }}</h5>
+                                    </mat-card-content>
+
+                                    <mat-card-actions>
+
+                                    </mat-card-actions>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="filteredProducts">
+                        <div fxLayout=" row wrap " fxLayoutGap="16px grid ">
+                            <div [fxFlex]=" (100/7) + '%' " fxFlex.xs="100% " fxFlex.sm="33% " *ngFor="let product of filteredProducts " class="product " (click)="getThisProduct(product) ">
+                                <mat-card class="mat-elevation-z2 card2 ">
+                                    <img mat-card-image [src]="product.image " [alt]="product.name " *ngIf="product.image ">
                                     <mat-card-content class="adminContent ">
                                         <h5>{{ product.name }}</h5>
                                         <h5>{{ product.price | currency: 'ILS':true }}</h5>

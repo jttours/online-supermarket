@@ -7,7 +7,11 @@
     </mat-toolbar-row>
 
     <mat-toolbar-row>
-
+        <form class="form-inline md-form form-sm">
+            <label>Search product   </label>
+            <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" mdbInput>
+            <mat-icon aria-hidden="false">search</mat-icon>
+        </form>
         <span class="example-spacer"></span>
         <span *ngIf="authService.isLoggedIn()">{{authService.currentUser.firstName}}</span>
 

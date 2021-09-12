@@ -24,6 +24,7 @@ export class AdminMainComponent implements OnInit {
   imageData!: any;
   submitted = false;
   product!: Product;
+  filteredProducts: any;
 
   mySubscription: any;
 
@@ -35,7 +36,10 @@ export class AdminMainComponent implements OnInit {
     {  name: "Meat and Chicken" },
   ];
   
+
   
+  
+  // on product selection from the grid of products, display product details in the update product form
 
   getThisProduct(data: any){
     console.log(data);
@@ -48,8 +52,7 @@ export class AdminMainComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private productService: ProductService) { 
-      
+    private productService: ProductService) {   
     }
 
   
@@ -59,7 +62,7 @@ export class AdminMainComponent implements OnInit {
       .getProductsStream()
       .subscribe((products: Product[]) => {
         this.products = products;
-        console.log(products);
+        console.log('products',products);
       });
 
       this.updateProductForm = new FormGroup({
@@ -74,6 +77,29 @@ export class AdminMainComponent implements OnInit {
   ngOnDestroy() {
     this.productSubscription.unsubscribe();
   }
+
+
+  // select a category and filter all products with that category value
+
+  selectedCategory = this.categories[0];
+  onSelect(category: any): void {
+    this.selectedCategory = category;
+    console.log('the category is - ', category.name);
+    console.log('products2 - ', this.products)
+
+    this.filteredProducts = this.products.filter(function (item) {
+      return item.category == category.name;
+    });
+
+    
+    console.log('filteredValue',(this.filteredProducts));
+    
+
+    
+
+  }
+
+  // upload file on file select in the form
 
   onFileSelect(event: any){
     const fileElement = (event.target);
@@ -90,6 +116,7 @@ export class AdminMainComponent implements OnInit {
     }
     
   }
+//update the product with the new details entered on the form
 
   updateProduct(){
       this.submitted = true;
@@ -105,16 +132,14 @@ export class AdminMainComponent implements OnInit {
         this.imageData = null;
 
         
-
+        // refresh page to show details of updated product
+        
         let currentUrl = this.router.url;
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
         this.router.navigate([currentUrl]);
-    });
+    });   
+  }
 
-        
-
-
-        
-    }
+  
 
 }
