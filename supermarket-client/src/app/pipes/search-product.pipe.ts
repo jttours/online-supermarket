@@ -10,12 +10,13 @@ export class SearchProductPipe implements PipeTransform {
       return [];
     }
     if (!searchText) {
-      return searchProducts;
+      return [];
     }
     searchText = searchText.toLocaleLowerCase();
 
     return searchProducts.filter(sp => {
-      return sp.toLocaleLowerCase().includes(searchText);
+      console.log('sp', sp);
+      return sp.name.toLocaleLowerCase().includes(searchText);
     });
   }
 

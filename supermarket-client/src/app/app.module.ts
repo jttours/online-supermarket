@@ -21,6 +21,7 @@ import { RegisterComponent } from './components/main-page/register/register.comp
 import { AddProductComponent } from './components/adminPage/add-product/add-product.component';
 import { AdminMainComponent } from './components/adminPage/admin-main/admin-main.component';
 import { SearchProductPipe } from './pipes/search-product.pipe';
+import { HighlightDirective } from './pipes/highlight.pipe';
 
 
 
@@ -38,7 +39,8 @@ import { SearchProductPipe } from './pipes/search-product.pipe';
     RegisterComponent,
     AddProductComponent,
     AdminMainComponent,
-    SearchProductPipe
+    SearchProductPipe,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,

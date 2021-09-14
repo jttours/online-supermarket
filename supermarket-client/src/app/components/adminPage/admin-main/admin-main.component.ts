@@ -1,3 +1,4 @@
+import { SearchProductPipe } from './../../../pipes/search-product.pipe';
 import { Component, OnInit } from '@angular/core';
 
 import { Subscription } from "rxjs";
@@ -6,6 +7,10 @@ import { NavigationEnd, Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { Product } from 'src/app/models/Product';
 import { FormControl, FormGroup } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
+
+
+
 
 @Component({
   selector: 'admin-main',
@@ -25,6 +30,16 @@ export class AdminMainComponent implements OnInit {
   submitted = false;
   product!: Product;
   filteredProducts: any;
+
+
+  pagedList: Product[]= [];
+  breakpoint: number = 8;
+  length: number = 0;
+  pageSize: number = 8;
+  pageSizeOptions: number[] = [8, 12];
+  pageEvent!: PageEvent;
+
+  searchText = '';
 
   mySubscription: any;
 
@@ -62,7 +77,13 @@ export class AdminMainComponent implements OnInit {
       .getProductsStream()
       .subscribe((products: Product[]) => {
         this.products = products;
-        console.log('products',products);
+        // console.log('products',products);
+
+        this.breakpoint = (window.innerWidth <= 800) ? 1 : 12;
+        console.log('1------',this.breakpoint);
+        this.pagedList = this.products.slice(0, 12);
+        console.log('paged list - ',this.pagedList)
+        this.length = this.products.length;
       });
 
       this.updateProductForm = new FormGroup({
@@ -72,6 +93,8 @@ export class AdminMainComponent implements OnInit {
         image: new FormControl(null),
         category: new FormControl(null),
       })
+
+        
   }
 
   ngOnDestroy() {
@@ -89,14 +112,8 @@ export class AdminMainComponent implements OnInit {
 
     this.filteredProducts = this.products.filter(function (item) {
       return item.category == category.name;
-    });
-
-    
+    });  
     console.log('filteredValue',(this.filteredProducts));
-    
-
-    
-
   }
 
   // upload file on file select in the form
@@ -136,10 +153,24 @@ export class AdminMainComponent implements OnInit {
         
         let currentUrl = this.router.url;
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([currentUrl]);
+        this.router.navigate([currentUrl]);       
     });   
   }
 
-  
+  OnPageChange(event: PageEvent) {
+    console.log('event',event);
+    let startIndex = event.pageIndex * event.pageSize;
+    console.log('startIndex',startIndex);
+    let endIndex = startIndex + event.pageSize;
+    if(endIndex > this.length){
+      endIndex = this.length;
+    }
+    this.pagedList = this.products.slice(startIndex, endIndex);
+    
+  }
 
+  onResize(event: any) { //to adjust to screen size
+    this.breakpoint = (event.target.innerWidth <= 800) ? 1 : 12;
+    console.log('onResize - ',this.breakpoint);
+  }
 }

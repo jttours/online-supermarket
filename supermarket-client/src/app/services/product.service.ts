@@ -37,6 +37,10 @@ export class ProductService {
     return this.products$.asObservable();
   }
 
+  getProductsInStore() {
+    return this.products;
+  }
+
   addProduct(name: string, image: File, price: number, category: string){
 
     const productData = new FormData();
