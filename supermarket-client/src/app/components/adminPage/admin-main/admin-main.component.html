@@ -102,8 +102,10 @@
                     </div>
 
                     <div *ngIf="filteredProducts ">
-                        <div fxLayout=" row wrap " fxLayoutGap="16px grid ">
-                            <div [fxFlex]=" (100/4) + '%' " fxFlex.xs="100% " fxFlex.sm="33% " *ngFor="let product of filteredProducts " class="product " (click)="getThisProduct(product) ">
+                        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="OnPageChange($event)">
+                        </mat-paginator>
+                        <div fxLayout=" row wrap " fxLayoutGap="16px grid " (window:resize)="onResize($event)">
+                            <div [fxFlex]=" (100/4) + '%' " fxFlex.xs="100% " fxFlex.sm="33% " *ngFor="let product of pagedList " class="product " (click)="getThisProduct(product) ">
                                 <mat-card class="mat-elevation-z2 card2 ">
                                     <img mat-card-image [src]="product.image " [alt]="product.name " *ngIf="product.image ">
                                     <mat-card-content class="adminContent ">

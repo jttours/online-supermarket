@@ -1,5 +1,5 @@
 //import { Categories } from './../../../models/categories.ts/categories.ts.module';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { Categories } from '../../../models/Categories';
 
@@ -11,6 +11,8 @@ import { Categories } from '../../../models/Categories';
 export class ShoppingHeaderComponent implements OnInit {
 
   categories= [] = Categories;
+
+  @Output() newSelectedCategory = new EventEmitter<string>();
 
   constructor() { }
 
@@ -26,6 +28,8 @@ export class ShoppingHeaderComponent implements OnInit {
   onSelect(category: any): void {
     this.selectedCategory = category;
     console.log('the category is - ', category.name);
+
+    this.newSelectedCategory.emit(category.name);
     //console.log('products2 - ', this.products)
 
     // this.filteredProducts = this.products.filter(function (item) {
@@ -33,5 +37,7 @@ export class ShoppingHeaderComponent implements OnInit {
     // });  
     // console.log('filteredValue',(this.filteredProducts));
   }
+
+  
 
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/Product';
-import { faArrowsAltH } from '@fortawesome/free-solid-svg-icons';
 
 import { ProductService } from '../../../services/product.service';
 
@@ -18,7 +17,10 @@ export class ShoppingPageComponent implements OnInit {
   product!: Product;
   products: Product[] = [];
   page: any;
-  faarrowsalth=faArrowsAltH;
+  maxSize = 12;
+  pageSecond: any;
+  filteredProducts: any;
+  
   
   
   
@@ -41,6 +43,15 @@ export class ShoppingPageComponent implements OnInit {
   resizePage(){
     this.resize = !this.resize;    
   }   
+
+  shoppingSelectedCategory(newSelectedCategory : string) {
+    console.log('new selected category',newSelectedCategory);
+
+    this.filteredProducts = this.products.filter(function (item) {
+      return item.category == newSelectedCategory;
+    });  
+    console.log('filteredValue',(this.filteredProducts));
+  }
 
   
 }

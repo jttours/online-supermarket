@@ -1,77 +1,43 @@
-<!-- <div class="content">
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px grid">
-        <div [fxFlex]="(20) + '%'" fxFlex.xs="100%" fxFlex.sm="33%">
-            <mat-card-content class="shoppingCart">
-                <mat-card class=" mat-elevation-z4 ">
-                    <mat-card-title>
-                        <my-cart></my-cart>
-                    </mat-card-title>
-                    <mat-card-content>
+<div class="row shoppingMain flex-grow-1">
 
-                    </mat-card-content>
-                </mat-card>
-            </mat-card-content>
-        </div>
-
-        <div [fxFlex]="(66.6) + '%' " fxFlex.xs="100% " fxFlex.sm="66% ">
-            <mat-card class="mat-elevation-z4 ">
-                <mat-card-title>
-                    <mat-toolbar color="primary">
-
-                        <shopping-header></shopping-header>
-                    </mat-toolbar>
-                </mat-card-title>
-                <mat-card-content>
-
-                    <p>card 2</p>
-                </mat-card-content>
-            </mat-card>
-        </div>
-
-
-
-
+    <div class="col-sm-2" [ngClass]="resize ? 'col-sm-6' : 'col-sm-2'">
+        <mat-icon aria-hidden="false" (click)=" resizePage() ">arrow_forward</mat-icon>
     </div>
-</div> -->
-<div class="container">
-    <div class="row shoppingMain flex-grow-1">
+    <div [ngClass]="resize ? 'col-sm-6' : 'col-sm-10'">
+        <mat-icon aria-hidden="false" (click)=" resizePage() ">arrow_back</mat-icon>
+        <shopping-header (newSelectedCategory)="shoppingSelectedCategory($event)"></shopping-header>
 
-        <div class="col-sm-2" [ngClass]="resize ? 'col-sm-6' : 'col-sm-2'">
-            <mat-icon aria-hidden="false" (click)=" resizePage() ">arrow_forward</mat-icon>
-        </div>
-        <div [ngClass]="resize ? 'col-sm-6' : 'col-sm-10'">
-            <mat-icon aria-hidden="false" (click)=" resizePage() ">arrow_back</mat-icon>
-            <shopping-header></shopping-header>
-            <div class="row row-cols-1 row-cols-md-4 g-4 mr-3">
-                <div class="card text-center border-primary mb-3" *ngFor="let product of products">
+
+        <pagination-controls (pageChange)="pageSecond = $event" id="second"></pagination-controls>
+        <div *ngIf="!filteredProducts">
+            <div class="row row-cols-1 row-cols-md-6 g-4 mr-3">
+
+
+                <div class="card text-center border-primary mb-3" *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: pageSecond, id:'second' }">
                     <img [src]="product.image " [alt]="product.name " class="card-img-top img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
                         <h5>{{ product.price | currency: 'ILS':true }}</h5>
                     </div>
                 </div>
-                <pagination-controls (pageChange)="page = $event"></pagination-controls>
-                <!-- <div class="card-group">
-                <div class="card text-center border-primary mb-3" *ngFor="let product of products">
+
+            </div>
+        </div>
+
+        <div *ngIf="filteredProducts">
+            <div class="row row-cols-1 row-cols-md-6 g-4 mr-3">
+
+
+                <div class="card text-center border-primary mb-3" *ngFor="let product of filteredProducts | paginate: { itemsPerPage: 12, currentPage: pageSecond, id:'second' }">
                     <img [src]="product.image " [alt]="product.name " class="card-img-top img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
                         <h5>{{ product.price | currency: 'ILS':true }}</h5>
-                        <a href="#" class="btn btn-primary" style="width: 5rem;">buy</a>
                     </div>
-                </div> -->
-                <!-- <div class="row row-cols-1 row-cols-md-4 g-4">
-                    <div class="col">
-                        <div class="card-deck">
-                            <div class="card text-center border-primary mb-3" *ngFor="let product of products">
-                                <img [src]="product.image " [alt]="product.name " class="card-img-top img-fluid">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ product.name }}</h5>
-                                    <h5>{{ product.price | currency: 'ILS':true }}</h5>
-                                    <a href="#" class="btn btn-primary" style="width: 5rem;">buy</a>
-                                </div>
-                            </div>
-                        </div>
+                </div>
 
-                    </div> -->
             </div>
+        </div>
+
+    </div>
+</div>

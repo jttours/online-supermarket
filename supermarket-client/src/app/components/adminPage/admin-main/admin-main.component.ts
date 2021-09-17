@@ -8,6 +8,7 @@ import { ProductService } from '../../../services/product.service';
 import { Product } from 'src/app/models/Product';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { Categories } from '../../../models/Categories';
 
 
 
@@ -43,13 +44,7 @@ export class AdminMainComponent implements OnInit {
 
   mySubscription: any;
 
-  categories = [
-    {  name: "Milk & Cheese" },
-    {  name: "Fruits & Vegetables" },
-    {  name: "Cleaning Materials" },
-    {  name: "Drinks" },
-    {  name: "Meat and Chicken" },
-  ];
+  categories= [] = Categories;
   
 
   
@@ -114,6 +109,8 @@ export class AdminMainComponent implements OnInit {
       return item.category == category.name;
     });  
     console.log('filteredValue',(this.filteredProducts));
+    this.pagedList = this.filteredProducts.slice(0, 12);
+    this.length = this.filteredProducts.length;
   }
 
   // upload file on file select in the form
