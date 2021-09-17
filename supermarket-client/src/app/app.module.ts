@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -51,7 +53,9 @@ import { HighlightDirective } from './pipes/highlight.pipe';
     FormsModule,
     ReactiveFormsModule,
     AngularMaterialModule,
-    MDBBootstrapModule.forRoot(),    
+    MDBBootstrapModule.forRoot(), 
+    NgxPaginationModule, 
+    FontAwesomeModule,  
   ],
   providers: [],
   bootstrap: [AppComponent]

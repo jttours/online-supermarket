@@ -1,4 +1,7 @@
+//import { Categories } from './../../../models/categories.ts/categories.ts.module';
 import { Component, OnInit } from '@angular/core';
+
+import { Categories } from '../../../models/Categories';
 
 @Component({
   selector: 'shopping-header',
@@ -7,9 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingHeaderComponent implements OnInit {
 
+  categories= [] = Categories;
+
   constructor() { }
 
   ngOnInit(): void {
+
+
+    
+  }
+  // select a category and filter all products with that category value
+
+  selectedCategory = this.categories[0];
+  
+  onSelect(category: any): void {
+    this.selectedCategory = category;
+    console.log('the category is - ', category.name);
+    //console.log('products2 - ', this.products)
+
+    // this.filteredProducts = this.products.filter(function (item) {
+    //   return item.category == category.name;
+    // });  
+    // console.log('filteredValue',(this.filteredProducts));
   }
 
 }
