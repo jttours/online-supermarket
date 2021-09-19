@@ -1,8 +1,19 @@
 <div class="row shoppingMain flex-grow-1">
-
     <div class="col-sm-2" [ngClass]="resize ? 'col-sm-6' : 'col-sm-2'">
-        <mat-icon aria-hidden="false" (click)=" resizePage() ">arrow_forward</mat-icon>
+        <h1 class="card-title" style="text-align-last: right;">
+            MY CART
+            <mat-icon aria-hidden="false" (click)=" resizePage() ">arrow_forward</mat-icon>
+        </h1>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+        </ul>
+        <div class="card-footer">
+            Card footer
+        </div>
     </div>
+
     <div [ngClass]="resize ? 'col-sm-6' : 'col-sm-10'">
         <mat-icon aria-hidden="false" (click)=" resizePage() ">arrow_back</mat-icon>
         <shopping-header (newSelectedCategory)="shoppingSelectedCategory($event)"></shopping-header>
@@ -13,7 +24,7 @@
             <div class="row row-cols-1 row-cols-md-6 g-4 mr-3">
 
 
-                <div class="card text-center border-primary mb-3" *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: pageSecond, id:'second' }">
+                <div class="card text-center border-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="buyThisProduct(product) " *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: pageSecond, id:'second' }">
                     <img [src]="product.image " [alt]="product.name " class="card-img-top img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
@@ -28,7 +39,7 @@
             <div class="row row-cols-1 row-cols-md-6 g-4 mr-3">
 
 
-                <div class="card text-center border-primary mb-3" *ngFor="let product of filteredProducts | paginate: { itemsPerPage: 12, currentPage: pageSecond, id:'second' }">
+                <div class="card text-center border-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="buyThisProduct(product) " *ngFor="let product of filteredProducts | paginate: { itemsPerPage: 12, currentPage: pageSecond, id:'second' }">
                     <img [src]="product.image " [alt]="product.name " class="card-img-top img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
@@ -39,5 +50,37 @@
             </div>
         </div>
 
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centere">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="exampleModalLabel">{{productToBuyName}}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ productToBuyPrice | currency: 'ILS':true }} per unit
+                </div>
+                <div class="modal-footer">
+                    <form (ngSubmit)="addToCart()" [formGroup]="myCartForm" class="needs-validation" novalidate>
+                        <div class="mb-3 ">
+                            <div>
+                                <img class="col-sm-9" [src]="productToBuyImage" [alt]="productToBuyName">
+                            </div>
+                            <div>
+                                <label for="cartProductQuantity" class="col-form-label ">Units to buy</label>
+                                <input type="number " class="form-control form-control-sm " formControlName="cartProductQuantity" id="cartProductQuantity" required>
+                            </div>
+                            <!-- <div class="invalid-feedback ">
+                                Please enter number of units
+                            </div> -->
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" type="submit">Add to cart</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>

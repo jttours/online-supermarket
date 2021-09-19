@@ -95,26 +95,6 @@ router.put('/:id', upload.single('image'), async(req,res) => {
   };
 
   
-
-  //console.log('image - ', image);
-   
-  // const product = await Product.findByIdAndUpdate(_id, {
-  //   $set: {
-  //     name,
-  //     price,
-  //     image,
-  //     category
-  //   }
-    
-
-  // }, { new: true });
-
-  // console.log('product - ',product );
-  
-
-  // await product.save();
-
-  // res.send(_.pick(product, ['_id','name','price','image','category']));
 })
 
 

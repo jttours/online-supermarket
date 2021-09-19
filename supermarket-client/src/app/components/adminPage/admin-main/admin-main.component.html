@@ -32,7 +32,7 @@
                                     </div>
                                     <div class="form-group">
                                         <!-- <label for="image">Select file for product image</label> -->
-                                        <input type="text" id="productImage" formControlName="image" [(ngModel)]="updateProductImage" class="form-control" placeholder="image path ">
+                                        <input type="text" id="productImage" formControlName="image" [(ngModel)]="updateProductImage" class="form-control" placeholder="image path " readonly>
                                         <input (change)="onFileSelect($event)" type="file" id="image" class="form-control">
                                     </div>
                                     <div class="form-group">

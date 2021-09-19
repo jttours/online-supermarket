@@ -6,8 +6,7 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', async (req,res) => {
-    // const { error } = validate(req.body);
-    // if (error) return res.status(400).send(error.details[0].message);
+    
 
     let user = await User.findOne({ idNumber: req.body.idNumber});
     if (user) return res.status(400).send('User already registered');
@@ -19,15 +18,7 @@ router.post('/', async (req,res) => {
     user.password2 = await bcrypt.hash(user.password2,salt);
 
 
-    // user = new User({
-    //     userIdNumber: req.body.userIdNumber,
-    //     userEmail: req.body.userEmail,
-    //     userPassword: req.body.userPassword,
-    //     userCity: req.body.userCity,
-    //     userStreet: req.body.userStreet,
-    //     userFirstName: req.body.userFirstName,
-    //     userLastName: req.body.userLastName,
-    // })
+    
     
     await user.save();
 

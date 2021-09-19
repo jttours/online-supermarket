@@ -5,6 +5,7 @@ const multer = require('multer');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const products = require('./routes/products');
+const cart = require('./routes/cart');
 
 
 const app = express();
@@ -26,6 +27,7 @@ app.use('/api/auth', auth);
 app.use('/api/products/add', products);
 app.use('/api/products/getAllProducts', products);
 app.use('/api/products/update', products);
+app.use('/api/addToCart', cart);
 
 
 
