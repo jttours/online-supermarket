@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/Product';
 
-import { ProductService } from '../../../services/product.service';
+import { ProductService } from 'src/app/services/product.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
+import { CartProducts } from 'src/app/models/CartProducts';
 
 @Component({
   selector: 'shopping-page',
@@ -34,6 +36,11 @@ export class ShoppingPageComponent implements OnInit {
   maxSize = 12;
   pageSecond: any;
   filteredProducts: any;
+  data: any;
+  cart: any;
+  cartProducts: any;
+  cProduct:any;
+  testCart:any;
   
 
   buyThisProduct(data: any){
@@ -66,6 +73,7 @@ export class ShoppingPageComponent implements OnInit {
     private productService: ProductService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
+    private cartService: CartService,
   ) { }
   
 
@@ -78,7 +86,7 @@ export class ShoppingPageComponent implements OnInit {
         console.log('shopping - ',products);
       });
 
-
+      this.getCart()
       this.createForm();
   }
   resizePage(){
@@ -103,8 +111,23 @@ export class ShoppingPageComponent implements OnInit {
     this.myCartForm.value.cartCurrentUser_Id = this.authService.currentUser._id;
     this.myCartForm.value.cartCurrentUserName = this.authService.currentUser.firstName;
     console.log ('cart product', this.myCartForm.value);
+
+    this.cartService.addToCart(
+      this.myCartForm.value).subscribe((res: any) => {
+        this.data = res;
+        alert("acount transaction added");
+      })
     this.myCartForm.reset();
   }
 
+  getCart(){
+    this.cartService.getCart(this.authService.currentUser._id).subscribe(res=>{
+      
+      console.log("response - ",(res));
+      this.cartProducts=res;
+      console.log('cart',this.cartProducts);
+      
+    })
+  }
   
 }

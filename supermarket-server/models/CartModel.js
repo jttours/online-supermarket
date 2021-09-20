@@ -18,7 +18,9 @@ const Cart = mongoose.model('Cart', {
                 required: true
             },
             productImage: String,
-            productPrice: Number
+            productPrice: Number,
+            totalPrice: { 
+              $multiply: [ "$productPrice", "$productQuantity" ] } 
         }
       ],
       modifiedOn: {

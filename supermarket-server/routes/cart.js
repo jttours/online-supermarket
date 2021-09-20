@@ -8,8 +8,10 @@ const router = express.Router();
 
 const app = express();
 
+
+
 router.post("/", async (req, res) => {
-   console.log ('the cart - ',req.body);
+   //console.log ('the cart - ',req.body);
     const { cartProduct_Id, cartProductName, cartProductQuantity, cartProductImage, cartProductUnitPrice } = req.body;
     const userId = req.body.cartCurrentUser_Id; // The logged in user id
     const productId = cartProduct_Id;
@@ -19,7 +21,7 @@ router.post("/", async (req, res) => {
     const productPrice = cartProductUnitPrice;
 
 
-    console.log('user id - ',userId);
+    //console.log('user id - ',userId);
   
     try {
       let cart = await Cart.findOne({ userId });
@@ -62,7 +64,21 @@ router.post("/", async (req, res) => {
     }
 });
     
+router.get('/:userId',async(req,res) => {
+  console.log('body',req.params);
+  const { userId } = req.params;
+  console.log('user id - ', userId);
+  try {
+    let cart = await Cart.findOne({ userId });
+    console.log((Array.isArray(cart.products)));
+    return res.status(201).send(cart.products);
 
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Something went wrong");
+  }
+
+})
 
 
 module.exports = router;

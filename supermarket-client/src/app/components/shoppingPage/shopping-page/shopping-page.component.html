@@ -4,13 +4,33 @@
             MY CART
             <mat-icon aria-hidden="false" (click)=" resizePage() ">arrow_forward</mat-icon>
         </h1>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
+        <!-- <tbody>
+            <tr class="list-group list-group-flush" *ngFor="let cProduct of cartProducts; let i = index"> -->
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item" style="width:25%;">Product</li>
+            <li class="list-group-item" style="width:15%;">Quantity</li>
+            <li class="list-group-item" style="width:15%;">Unit Price</li>
+            <li class="list-group-item" style="width:15%;">Price</li>
         </ul>
+        <ul class="list-group list-group-horizontal" *ngFor="let cProduct of cartProducts; let i = index">
+            <li class="list-group-item" style="width:25%;">{{ cProduct.productName }}</li>
+            <li class="list-group-item" style="width:15%;">{{ cProduct.productQuantity }}</li>
+            <li class="list-group-item" style="width:15%;">{{ cProduct.productPrice }}</li>
+            <li class="list-group-item" style="width:15%;">{{ cProduct.totalPrice * cProduct.productQuantity }}</li>
+
+        </ul>
+
+        <!-- <td>{{ cProduct.productName }}</td>
+        <td>{{ cProduct.productQuantity }}</td>
+        <td>{{ cProduct.productPrice }}</td>
+        </tr>
+        </tbody> -->
         <div class="card-footer">
-            Card footer
+            <ul class="list-group list-group-horizontal">
+                <li class="list-group-item" style="width:25%;">Total Price</li>
+                <li class="list-group-item" style="width:15%;"> -- </li>
+                <li class="list-group-item" style="width:15%;"> xxxx </li>
+            </ul>
         </div>
     </div>
 
@@ -74,7 +94,7 @@
                             <!-- <div class="invalid-feedback ">
                                 Please enter number of units
                             </div> -->
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" type="submit">Add to cart</button>
+                            <button type="button" (click)="getCart()" class="btn btn-primary" data-bs-dismiss="modal" type="submit">Add to cart</button>
                         </div>
 
                     </form>

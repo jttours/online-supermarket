@@ -28,6 +28,7 @@ app.use('/api/products/add', products);
 app.use('/api/products/getAllProducts', products);
 app.use('/api/products/update', products);
 app.use('/api/addToCart', cart);
+app.use('/api/getCart', cart);
 
 
 
