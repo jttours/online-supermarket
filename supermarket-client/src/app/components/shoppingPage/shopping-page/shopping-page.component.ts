@@ -40,7 +40,7 @@ export class ShoppingPageComponent implements OnInit {
   cart: any;
   cartProducts: any;
   cProduct:any;
-  testCart:any;
+  itemPrice: any;
   
 
   buyThisProduct(data: any){
@@ -86,7 +86,7 @@ export class ShoppingPageComponent implements OnInit {
         console.log('shopping - ',products);
       });
 
-      this.getCart()
+      this.getCart();
       this.createForm();
   }
   resizePage(){
@@ -115,9 +115,14 @@ export class ShoppingPageComponent implements OnInit {
     this.cartService.addToCart(
       this.myCartForm.value).subscribe((res: any) => {
         this.data = res;
-        alert("acount transaction added");
+        // alert("acount transaction added");
       })
     this.myCartForm.reset();
+
+    let currentUrl = this.router.url;
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);       
+    });   
   }
 
   getCart(){
@@ -126,8 +131,17 @@ export class ShoppingPageComponent implements OnInit {
       console.log("response - ",(res));
       this.cartProducts=res;
       console.log('cart',this.cartProducts);
+
+      
       
     })
   }
+  total(cartProducts: any) {
+    var total = 0;
+    cartProducts.forEach((element: { productPrice: number; productQuantity: number; }) => {
+total = total + (element.productPrice * element.productQuantity);
+    });
+    return total;
+}
   
 }

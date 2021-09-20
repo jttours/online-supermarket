@@ -15,8 +15,9 @@
         <ul class="list-group list-group-horizontal" *ngFor="let cProduct of cartProducts; let i = index">
             <li class="list-group-item" style="width:25%;">{{ cProduct.productName }}</li>
             <li class="list-group-item" style="width:15%;">{{ cProduct.productQuantity }}</li>
-            <li class="list-group-item" style="width:15%;">{{ cProduct.productPrice }}</li>
-            <li class="list-group-item" style="width:15%;">{{ cProduct.totalPrice * cProduct.productQuantity }}</li>
+            <li class="list-group-item" style="width:15%;">{{ cProduct.productPrice | currency: 'ILS':true}}</li>
+            <li class="list-group-item" style="width:15%;">{{ cProduct.productPrice * cProduct.productQuantity | currency: 'ILS':true }}</li>
+            <!-- <li class="list-group-item" style="width:15%;" ng-init="itemTotal = cProduct.productPrice * cProduct.productQuantity; ; controller.Total=controller.Total + itemTotal">{{itemTotal}} €</li> -->
 
         </ul>
 
@@ -29,7 +30,8 @@
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item" style="width:25%;">Total Price</li>
                 <li class="list-group-item" style="width:15%;"> -- </li>
-                <li class="list-group-item" style="width:15%;"> xxxx </li>
+                <li class="list-group-item" style="width:15%;">₪{{total(cartProducts)}}</li>
+
             </ul>
         </div>
     </div>
