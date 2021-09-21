@@ -49,7 +49,7 @@ export class BodyComponent implements OnInit {
         const credentials = this.loginForm.value;
         console.log('credentials -',credentials);
         this.authService.login(credentials);
-        
+        this.loginForm.reset();
       }
     }
 
@@ -68,8 +68,6 @@ export class BodyComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  totalProducts(numberOfProducts:number) {
-    return this.numberOfProducts;
-  }
+  
 
 }

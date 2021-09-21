@@ -1,3 +1,4 @@
+import { ItemsComponent } from './components/shoppingPage/items/items.component';
 import { BodyComponent } from './components/main-page/body/body.component';
 import { ShoppingPageComponent } from './components/shoppingPage/shopping-page/shopping-page.component';
 import { RegisterComponent } from './components/main-page/register/register.component';
@@ -23,6 +24,9 @@ const routes: Routes = [
   },
   { 
     path: 'addProduct', component: AddProductComponent,
+  },
+  { 
+    path: 'items', component: ItemsComponent,
   },
 ];
 

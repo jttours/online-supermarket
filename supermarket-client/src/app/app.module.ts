@@ -24,6 +24,7 @@ import { AddProductComponent } from './components/adminPage/add-product/add-prod
 import { AdminMainComponent } from './components/adminPage/admin-main/admin-main.component';
 import { SearchProductPipe } from './pipes/search-product.pipe';
 import { HighlightDirective } from './pipes/highlight.pipe';
+import { OrderComponent } from './components/shoppingPage/order/order.component';
 
 
 
@@ -42,7 +43,8 @@ import { HighlightDirective } from './pipes/highlight.pipe';
     AddProductComponent,
     AdminMainComponent,
     SearchProductPipe,
-    HighlightDirective
+    HighlightDirective,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
