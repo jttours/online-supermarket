@@ -1,14 +1,15 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <span>LOGO</span>
+        <span><img class="logo" alt="logo" src="./assets/Super express logo.JPG"></span>
         <span class="example-spacer"></span>
-        <span>Contact name and email address</span>
+
+        <span>1 Jerusalem Street / 02-5552233</span>
 
     </mat-toolbar-row>
 
     <mat-toolbar-row>
         <form class="form-inline md-form form-sm">
-            <label>Search product   </label>
+            <!-- <label>Search product   </label> -->
             <input type="text" class="form-control" id="search-text" aria-describedby="search-text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeholder="Enter text to search" autofocus>
             <mat-icon aria-hidden="false">search</mat-icon>
             <ul class="list-group list-group-flush">
@@ -18,7 +19,8 @@
             </ul>
         </form>
         <span class="example-spacer"></span>
-        <span *ngIf="authService.isLoggedIn()">{{authService.currentUser.firstName}}</span>
+        <span *ngIf="authService.isLoggedIn()"><button routerLink="/" (click)="authService.logout() ">Logout</button></span>
+        <span *ngIf="authService.isLoggedIn()">Welcome: {{authService.currentUser.firstName}}</span>
 
     </mat-toolbar-row>
 </mat-toolbar>

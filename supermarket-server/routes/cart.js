@@ -70,7 +70,7 @@ router.get('/:userId',async(req,res) => {
   console.log('user id - ', userId);
   try {
     let cart = await Cart.findOne({ userId });
-    console.log((Array.isArray(cart.products)));
+    //console.log((Array.isArray(cart.products)));
     return res.status(201).send(cart.products);
 
   } catch (err) {

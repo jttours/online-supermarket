@@ -1,1 +1,88 @@
-<p>items works!</p>
+<div class="row shoppingMain flex-grow-1">
+    <div class="col-sm-6">
+        <div class="card" style="width: 20rem;">
+            <mat-toolbar color="primary">
+                <mat-toolbar-row>
+                    <span class="example-spacer"></span>
+                    <button routerLink="/addProduct">
+                    <mat-icon aria-hidden="false">add</mat-icon>
+                </button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+            <div class="card-body">
+                <form [formGroup]="updateProductForm" (submit)="updateProduct()">
+                    <div class="form-group">
+                        <!-- <label for="name">Product name</label> -->
+                        <input type="text" id="productId" [(ngModel)]="updateProductId" formControlName="id" class="form-control" placeholder="product id " required>
+                    </div>
+                    <div class="form-group">
+                        <!-- <label for="name">Product name</label> -->
+                        <input type="text" id="productName" formControlName="name" [(ngModel)]="updateProductName" class="form-control" placeholder="Enter product name " required>
+                    </div>
+                    <div class="form-group">
+                        <!-- <label for="price">Product Price</label> -->
+                        <input type="number" id="price" formControlName="price" [(ngModel)]="updateProductPrice" class="form-control" placeholder="Enter product price " required>
+                    </div>
+                    <div class="form-group">
+                        <!-- <label for="image">Select file for product image</label> -->
+                        <input type="text" id="productImage" formControlName="image" [(ngModel)]="updateProductImage" class="form-control" placeholder="image path " readonly>
+                        <input (change)="onFileSelect($event)" type="file" id="image" class="form-control">
+                    </div>
+                    <div class="form-group">
+
+                        <input type="text" id="productCategory" formControlName="category" [(ngModel)]="updateProductCategory" class="form-control" placeholder="category ">
+                        <select class="form-control" placeholder="Category " formControlName="category">
+                            <option [ngValue]="null " disabled>Update category?</option>
+                            <option *ngFor="let category of categories" [ngValue]="category.name">{{category.name}}</option>
+                          </select>
+
+                    </div>
+                    <!-- <div *ngIf="imageData" class="form-group">
+                        <img [src]="imageData" [alt]="updateProductForm.value.name" style="width:400px; height:250px">
+                    </div> -->
+                    <div class="form-group">
+                        <button class="btn btn-dark btn-sm " type="submit">Update product</button>
+                    </div>
+                    <div>
+                        <a routerLink="/admin">back to admin main page</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="col-sm-8">
+    <shopping-header (newSelectedCategory)="shoppingSelectedCategory($event)"></shopping-header>
+    <div *ngIf="!filteredProducts">
+        <div class="row row-cols-1 row-cols-md-6 g-4 mr-3">
+
+
+            <div class="card text-center border-primary mb-3" (click)="getThisProduct(product) " *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: pageSecond, id:'second' }">
+                <img [src]="product.image " [alt]="product.name " class="card-img-top img-fluid">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <h5>{{ product.price | currency: 'ILS':true }}</h5>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div *ngIf="filteredProducts">
+        <div class="row row-cols-1 row-cols-md-6 g-4 mr-3">
+
+
+            <div class="card text-center border-primary mb-3" (click)="getThisProduct(product) " *ngFor="let product of filteredProducts | paginate: { itemsPerPage: 12, currentPage: pageSecond, id:'second' }">
+                <img [src]="product.image " [alt]="product.name " class="card-img-top img-fluid">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <h5>{{ product.price | currency: 'ILS':true }}</h5>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

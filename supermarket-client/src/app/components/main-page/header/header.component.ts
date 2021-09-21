@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 // import { MatToolbarModule } from '@angular/material/toolbar';
 // import {MatIconModule} from '@angular/material/icon';
 import { Subscription } from "rxjs";
@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit {
   products!: Product[];
   private productSubscription!: Subscription;
 
+  @Output() numberOfProducts = new EventEmitter<number>();
+
   constructor(
     public authService: AuthService,
     private productService: ProductService
@@ -33,6 +35,8 @@ export class HeaderComponent implements OnInit {
       .subscribe((products: Product[]) => {
         this.products = products;
         console.log('header products',products);
+
+        this.numberOfProducts.emit(products.length);
       });
   }
 

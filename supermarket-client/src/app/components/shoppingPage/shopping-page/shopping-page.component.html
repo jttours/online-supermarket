@@ -1,4 +1,4 @@
-<div class="row shoppingMain flex-grow-1">
+<div *ngIf="authService.isLoggedIn() && !authService.currentUser.admin " class="row shoppingMain flex-grow-1">
     <div class="col-sm-2" [ngClass]="resize ? 'col-sm-6' : 'col-sm-2'">
         <h1 class="card-title" style="text-align-last: right;">
             MY CART
@@ -15,8 +15,8 @@
         <ul class="list-group list-group-horizontal" *ngFor="let cProduct of cartProducts; let i = index">
             <li class="list-group-item" style="width:25%;">{{ cProduct.productName }}</li>
             <li class="list-group-item" style="width:15%;">{{ cProduct.productQuantity }}</li>
-            <li class="list-group-item" style="width:15%;">{{ cProduct.productPrice | currency: 'ILS':true}}</li>
-            <li class="list-group-item" style="width:15%;">{{ cProduct.productPrice * cProduct.productQuantity | currency: 'ILS':true }}</li>
+            <li class="list-group-item" style="width:15%;">₪{{ cProduct.productPrice}}</li>
+            <li class="list-group-item" style="width:15%;">₪{{ cProduct.productPrice * cProduct.productQuantity}}</li>
             <!-- <li class="list-group-item" style="width:15%;" ng-init="itemTotal = cProduct.productPrice * cProduct.productQuantity; ; controller.Total=controller.Total + itemTotal">{{itemTotal}} €</li> -->
 
         </ul>
@@ -30,7 +30,7 @@
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item" style="width:25%;">Total Price</li>
                 <li class="list-group-item" style="width:15%;"> -- </li>
-                <li class="list-group-item" style="width:15%;">₪{{total(cartProducts)}}</li>
+                <li *ngIf="cartProducts" class="list-group-item" style="width:15%;">₪{{total(cartProducts)}}</li>
 
             </ul>
         </div>
@@ -50,7 +50,7 @@
                     <img [src]="product.image " [alt]="product.name " class="card-img-top img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
-                        <h5>{{ product.price | currency: 'ILS':true }}</h5>
+                        <h5>₪{{ product.price}}</h5>
                     </div>
                 </div>
 

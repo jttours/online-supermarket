@@ -1,137 +1,92 @@
-<div class="contentAdmin">
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px grid">
-        <div [fxFlex]="(33.3) + '%'" fxFlex.xs="100%" fxFlex.sm="33%">
-            <mat-card-content class="shoppingCart">
-                <mat-card class=" mat-elevation-z4 ">
-                    <mat-toolbar color="primary">
-                        <mat-toolbar-row>
-                            <span class="example-spacer"></span>
-                            <button routerLink="/addProduct">
-                                <mat-icon aria-hidden="false">add</mat-icon>
-                            </button>
-                        </mat-toolbar-row>
-                    </mat-toolbar>
-                    <mat-card-title>
-
-                    </mat-card-title>
-                    <mat-card-content>
-                        <div class="card" style="width: 20rem;">
-                            <div class="card-body">
-                                <form [formGroup]="updateProductForm" (submit)="updateProduct()">
-                                    <div class="form-group">
-                                        <!-- <label for="name">Product name</label> -->
-                                        <input type="text" id="productId" [(ngModel)]="updateProductId" formControlName="id" class="form-control" placeholder="product id " required>
-                                    </div>
-                                    <div class="form-group">
-                                        <!-- <label for="name">Product name</label> -->
-                                        <input type="text" id="productName" formControlName="name" [(ngModel)]="updateProductName" class="form-control" placeholder="Enter product name " required>
-                                    </div>
-                                    <div class="form-group">
-                                        <!-- <label for="price">Product Price</label> -->
-                                        <input type="number" id="price" formControlName="price" [(ngModel)]="updateProductPrice" class="form-control" placeholder="Enter product price " required>
-                                    </div>
-                                    <div class="form-group">
-                                        <!-- <label for="image">Select file for product image</label> -->
-                                        <input type="text" id="productImage" formControlName="image" [(ngModel)]="updateProductImage" class="form-control" placeholder="image path " readonly>
-                                        <input (change)="onFileSelect($event)" type="file" id="image" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-
-                                        <input type="text" id="productCategory" formControlName="category" [(ngModel)]="updateProductCategory" class="form-control" placeholder="category ">
-                                        <select class="form-control" placeholder="Category " formControlName="category">
-                                            <option [ngValue]="null " disabled>Update category?</option>
-                                            <option *ngFor="let category of categories" [ngValue]="category.name">{{category.name}}</option>
-                                          </select>
-
-                                    </div>
-                                    <!-- <div *ngIf="imageData" class="form-group">
-                                        <img [src]="imageData" [alt]="updateProductForm.value.name" style="width:400px; height:250px">
-                                    </div> -->
-                                    <div class="form-group">
-                                        <button class="btn btn-dark btn-sm " type="submit">Update product</button>
-                                    </div>
-                                    <div>
-                                        <a routerLink="/admin">back to admin main page</a>
-                                    </div>
-                                </form>
-                            </div>
+<div *ngIf="authService.isLoggedIn() && authService.currentUser.admin ">
+    <div class="row shoppingMain flex-grow-1">
+        <div class="col-sm-6">
+            <div class="card" style="width: 20rem;">
+                <mat-toolbar color="primary">
+                    <mat-toolbar-row>
+                        <span class="example-spacer"></span>
+                        <button routerLink="/addProduct">
+                    <mat-icon aria-hidden="false">add</mat-icon>
+                </button>
+                    </mat-toolbar-row>
+                </mat-toolbar>
+                <div class="card-body">
+                    <form [formGroup]="updateProductForm" (submit)="updateProduct()">
+                        <div class="form-group">
+                            <!-- <label for="name">Product name</label> -->
+                            <input type="text" id="productId" [(ngModel)]="updateProductId" formControlName="id" class="form-control" placeholder="product id " required>
                         </div>
-                    </mat-card-content>
-                </mat-card>
-            </mat-card-content>
-        </div>
-
-        <div [fxFlex]="(70) + '%' " fxFlex.xs="100% " fxFlex.sm="70% ">
-            <mat-card class="mat-elevation-z4 ">
-                <mat-card-title>
-                    <mat-toolbar color="primary" *ngFor="let category of categories; let I = index">
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                                <div class="navbar-nav navMenu">
-                                    <a [class.active]="category" (click)="onSelect(category)">{{ category.name }}</a>
-                                </div>
-                            </div>
-                        </nav>
-                    </mat-toolbar>
-                </mat-card-title>
-                <mat-card-content>
-
-
-
-
-
-
-                    <div *ngIf="!filteredProducts">
-                        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="OnPageChange($event)">
-                        </mat-paginator>
-                        <div fxLayout=" row wrap " fxLayoutGap="16px grid " (window:resize)="onResize($event)">
-                            <div [fxFlex]=" (100/4) + '%' " fxFlex.xs="100% " fxFlex.sm="33% " *ngFor="let product of pagedList" class="product " (click)="getThisProduct(product) ">
-                                <mat-card class="mat-elevation-z2 card2 ">
-                                    <img mat-card-image [src]="product.image " [alt]="product.name " *ngIf="product.image ">
-                                    <mat-card-content class="adminContent ">
-                                        <h5>{{ product.name }}</h5>
-                                        <h5>{{ product.price | currency: 'ILS':true }}</h5>
-                                    </mat-card-content>
-
-                                    <mat-card-actions>
-
-                                    </mat-card-actions>
-                                </mat-card>
-                            </div>
+                        <div class="form-group">
+                            <!-- <label for="name">Product name</label> -->
+                            <input type="text" id="productName" formControlName="name" [(ngModel)]="updateProductName" class="form-control" placeholder="Enter product name " required>
                         </div>
-                    </div>
-
-                    <div *ngIf="filteredProducts ">
-                        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="OnPageChange($event)">
-                        </mat-paginator>
-                        <div fxLayout=" row wrap " fxLayoutGap="16px grid " (window:resize)="onResize($event)">
-                            <div [fxFlex]=" (100/4) + '%' " fxFlex.xs="100% " fxFlex.sm="33% " *ngFor="let product of pagedList " class="product " (click)="getThisProduct(product) ">
-                                <mat-card class="mat-elevation-z2 card2 ">
-                                    <img mat-card-image [src]="product.image " [alt]="product.name " *ngIf="product.image ">
-                                    <mat-card-content class="adminContent ">
-                                        <h5>{{ product.name }}</h5>
-                                        <h5>{{ product.price | currency: 'ILS':true }}</h5>
-                                    </mat-card-content>
-
-                                    <mat-card-actions>
-
-                                    </mat-card-actions>
-                                </mat-card>
-                            </div>
+                        <div class="form-group">
+                            <!-- <label for="price">Product Price</label> -->
+                            <input type="number" id="price" formControlName="price" [(ngModel)]="updateProductPrice" class="form-control" placeholder="Enter product price " required>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <!-- <label for="image">Select file for product image</label> -->
+                            <input type="text" id="productImage" formControlName="image" [(ngModel)]="updateProductImage" class="form-control" placeholder="image path " readonly>
+                            <input (change)="onFileSelect($event)" type="file" id="image" class="form-control">
+                        </div>
+                        <div class="form-group">
 
+                            <input type="text" id="productCategory" formControlName="category" [(ngModel)]="updateProductCategory" class="form-control" placeholder="category ">
+                            <select class="form-control" placeholder="Category " formControlName="category">
+                            <option [ngValue]="null " disabled>Update category?</option>
+                            <option *ngFor="let category of categories" [ngValue]="category.name">{{category.name}}</option>
+                          </select>
 
-                </mat-card-content>
-            </mat-card>
+                        </div>
+                        <!-- <div *ngIf="imageData" class="form-group">
+                        <img [src]="imageData" [alt]="updateProductForm.value.name" style="width:400px; height:250px">
+                    </div> -->
+                        <div class="form-group">
+                            <button class="btn btn-dark btn-sm " type="submit">Update product</button>
+                        </div>
+                        <div>
+                            <a routerLink="/admin">back to admin main page</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
         </div>
-
-
-
     </div>
 
-</div>
-<!-- </div> -->
+    <div class="col-sm-8">
+        <shopping-header (newSelectedCategory)="shoppingSelectedCategory($event)"></shopping-header>
 
-<!-- </div> -->
+        <pagination-controls (pageChange)="pageSecond = $event" id="second"></pagination-controls>
+        <div *ngIf="!filteredProducts">
+            <div class="row row-cols-1 row-cols-md-6 g-4 mr-3">
+
+
+                <div class="card text-center border-primary mb-3" (click)="getThisProduct(product) " *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: pageSecond, id:'second' }">
+                    <img [src]="product.image " [alt]="product.name " class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <h5>{{ product.price | currency: 'ILS':true }}</h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div *ngIf="filteredProducts">
+            <div class="row row-cols-1 row-cols-md-6 g-4 mr-3">
+
+
+                <div class="card text-center border-primary mb-3" (click)="getThisProduct(product) " *ngFor="let product of filteredProducts | paginate: { itemsPerPage: 12, currentPage: pageSecond, id:'second' }">
+                    <img [src]="product.image " [alt]="product.name " class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <h5>{{ product.price | currency: 'ILS':true }}</h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

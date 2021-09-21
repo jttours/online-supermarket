@@ -71,7 +71,7 @@ export class ShoppingPageComponent implements OnInit {
   constructor(
     private router: Router,
     private productService: ProductService,
-    private authService: AuthService,
+    public authService: AuthService,
     private formBuilder: FormBuilder,
     private cartService: CartService,
   ) { }
@@ -86,8 +86,9 @@ export class ShoppingPageComponent implements OnInit {
         console.log('shopping - ',products);
       });
 
-      this.getCart();
+      
       this.createForm();
+      this.getCart();
   }
   resizePage(){
     this.resize = !this.resize;    
@@ -139,9 +140,9 @@ export class ShoppingPageComponent implements OnInit {
   total(cartProducts: any) {
     var total = 0;
     cartProducts.forEach((element: { productPrice: number; productQuantity: number; }) => {
-total = total + (element.productPrice * element.productQuantity);
+      total = total + (element.productPrice * element.productQuantity);
     });
     return total;
-}
+  }
   
 }

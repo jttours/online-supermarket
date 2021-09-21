@@ -23,6 +23,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class BodyComponent implements OnInit {
 
+  numberOfProducts:any;
+
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -40,7 +42,8 @@ export class BodyComponent implements OnInit {
     });
 
     
-  
+
+
     login() {
       if (this.loginForm.valid) {
         const credentials = this.loginForm.value;
@@ -63,6 +66,10 @@ export class BodyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  totalProducts(numberOfProducts:number) {
+    return this.numberOfProducts;
   }
 
 }

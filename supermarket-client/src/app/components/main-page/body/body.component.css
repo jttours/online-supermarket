@@ -58,3 +58,8 @@ mat-card-content {
 .content>mat-card {
     margin-bottom: 16px;
 }
+
+.shopPic {
+    height: 250px;
+    width: 250px;
+}

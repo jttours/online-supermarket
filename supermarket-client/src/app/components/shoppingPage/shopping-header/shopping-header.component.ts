@@ -30,12 +30,7 @@ export class ShoppingHeaderComponent implements OnInit {
     console.log('the category is - ', category.name);
 
     this.newSelectedCategory.emit(category.name);
-    //console.log('products2 - ', this.products)
-
-    // this.filteredProducts = this.products.filter(function (item) {
-    //   return item.category == category.name;
-    // });  
-    // console.log('filteredValue',(this.filteredProducts));
+    
   }
 
   

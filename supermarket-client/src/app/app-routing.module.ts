@@ -3,6 +3,8 @@ import { ShoppingPageComponent } from './components/shoppingPage/shopping-page/s
 import { RegisterComponent } from './components/main-page/register/register.component';
 import { AdminMainComponent } from './components/adminPage/admin-main/admin-main.component';
 import { AddProductComponent } from './components/adminPage/add-product/add-product.component';
+
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 

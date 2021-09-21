@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { SearchProductPipe } from './../../../pipes/search-product.pipe';
 import { Component, OnInit } from '@angular/core';
 
@@ -32,7 +33,9 @@ export class AdminMainComponent implements OnInit {
   product!: Product;
   filteredProducts: any;
 
-
+  page: any;
+  maxSize = 12;
+  pageSecond: any;
   pagedList: Product[]= [];
   breakpoint: number = 8;
   length: number = 0;
@@ -62,7 +65,8 @@ export class AdminMainComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private productService: ProductService) {   
+    private productService: ProductService,
+    public authService: AuthService) {   
     }
 
   
@@ -91,6 +95,15 @@ export class AdminMainComponent implements OnInit {
 
         
   }
+  shoppingSelectedCategory(newSelectedCategory : string) {
+    console.log('new selected category',newSelectedCategory);
+
+    this.filteredProducts = this.products.filter(function (item) {
+      return item.category == newSelectedCategory;
+    });  
+    console.log('filteredValue',(this.filteredProducts));
+  }
+
 
   ngOnDestroy() {
     this.productSubscription.unsubscribe();
