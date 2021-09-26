@@ -33,6 +33,9 @@
                 <li *ngIf="cartProducts" class="list-group-item" style="width:15%;">₪{{total(cartProducts)}}</li>
 
             </ul>
+            <div class="col form-group">
+                <button class="btn btn-dark btn-sm" (click)="completeTheOrder(true)">Order</button>
+            </div>
         </div>
     </div>
 
@@ -42,7 +45,13 @@
 
 
         <pagination-controls (pageChange)="pageSecond = $event" id="second"></pagination-controls>
-        <div *ngIf="!filteredProducts">
+        <div *ngIf="goToOrder">
+            <order (orderProducts)="completeTheOrder($event)"></order>
+        </div>
+        <div *ngIf="!filteredProducts && !goToOrder">
+
+
+
             <div class="row row-cols-1 row-cols-md-6 g-4 mr-3">
 
 
@@ -57,7 +66,8 @@
             </div>
         </div>
 
-        <div *ngIf="filteredProducts">
+        <div *ngIf="filteredProducts && !goToOrder">
+
             <div class="row row-cols-1 row-cols-md-6 g-4 mr-3">
 
 

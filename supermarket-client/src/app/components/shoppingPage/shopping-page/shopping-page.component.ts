@@ -41,6 +41,8 @@ export class ShoppingPageComponent implements OnInit {
   cartProducts: any;
   cProduct:any;
   itemPrice: any;
+
+  goToOrder:boolean = false;
   
 
   buyThisProduct(data: any){
@@ -117,12 +119,13 @@ export class ShoppingPageComponent implements OnInit {
       this.myCartForm.value).subscribe((res: any) => {
         this.data = res;
         // alert("acount transaction added");
+        let currentUrl = this.router.url;
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);    
       })
     this.myCartForm.reset();
 
-    let currentUrl = this.router.url;
-        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([currentUrl]);       
+       
     });   
   }
 
@@ -143,6 +146,12 @@ export class ShoppingPageComponent implements OnInit {
       total = total + (element.productPrice * element.productQuantity);
     });
     return total;
+  }
+
+  completeTheOrder(orderProducts: boolean){
+    console.log('order products - ',orderProducts);
+    this.goToOrder=orderProducts;
+    
   }
   
 }
